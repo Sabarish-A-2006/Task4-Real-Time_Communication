@@ -1,0 +1,194 @@
+:root {
+  --primary: #4285f4;
+  --dark: #202124;
+  --light: #f8f9fa;
+  --gray: #e0e0e0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: var(--light);
+  height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  height: 100%;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Login Screen */
+#login-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 20px;
+}
+
+#login-screen h1 {
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+#login-screen input {
+  padding: 12px 15px;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid var(--gray);
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+#login-screen button {
+  padding: 12px 30px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Video Room */
+#video-room {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+}
+
+.header button {
+  padding: 8px 15px;
+  background: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.main {
+  flex: 1;
+  position: relative;
+  background: var(--dark);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 10px;
+  padding: 10px;
+  height: 100%;
+}
+
+.remote-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #333;
+  border-radius: 8px;
+}
+
+#local-video {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  background: #333;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 15px 0;
+}
+
+.controls button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: var(--primary);
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.controls button.active {
+  background: #34a853;
+}
+
+/* Chat Panel */
+#chat-panel {
+  position: absolute;
+  right: 20px;
+  bottom: 100px;
+  width: 300px;
+  height: 400px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+#chat-messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+.chat-message {
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  background: var(--gray);
+  border-radius: 8px;
+}
+
+.chat-input {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid var(--gray);
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--gray);
+  border-radius: 5px;
+}
+
+.chat-input button {
+  margin-left: 10px;
+  padding: 0 15px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
