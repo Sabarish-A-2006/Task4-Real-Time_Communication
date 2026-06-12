@@ -30,7 +30,7 @@ videoBtn.addEventListener("click", toggleVideo);
 audioBtn.addEventListener("click", toggleAudio);
 screenBtn.addEventListener("click", toggleScreenShare);
 chatToggle.addEventListener("click", () =>
-  chatPanel.classList.toggle("hidden")
+  chatPanel.classList.toggle("hidden"),
 );
 sendBtn.addEventListener("click", sendMessage);
 messageInput.addEventListener("keypress", (e) => {
