@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SimpleVideoChat</title>
+    <title>Meet | Professional Video Meetings</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -11,57 +11,233 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="container">
-      <!-- Login Screen -->
-      <div id="login-screen">
-        <h1>SimpleVideoChat</h1>
-        <input type="text" id="username" placeholder="Your name" />
-        <input
-          type="text"
-          id="room-id"
-          placeholder="Room ID (leave empty to create new)"
-        />
-        <button id="join-btn">Join Room</button>
+    <div id="toast-container"></div>
+
+    <!-- Login Screen -->
+    <div id="login-screen">
+      <div class="login-card">
+        <h1 class="login-logo">Meet</h1>
+        <div class="input-group">
+          <label>Your Name</label>
+          <input
+            type="text"
+            id="username"
+            placeholder="Enter your name"
+            autocomplete="off"
+          />
+        </div>
+        <div class="input-group">
+          <label>Meeting ID</label>
+          <input
+            type="text"
+            id="room-id"
+            placeholder="Enter meeting ID or leave blank"
+            autocomplete="off"
+          />
+        </div>
+        <button id="join-btn" class="primary-btn">Join Meeting</button>
       </div>
+    </div>
 
-      <!-- Video Room -->
-      <div id="video-room" class="hidden">
-        <div class="header">
-          <h2 id="room-name">Room: Loading...</h2>
-          <button id="leave-btn">
-            <i class="fas fa-sign-out-alt"></i> Leave
+    <!-- Video Room -->
+    <div id="video-room" class="hidden">
+      <header class="app-header">
+        <div class="room-info">
+          <span class="room-name" id="room-name">Meeting: Loading...</span>
+          <button
+            id="copy-room-btn"
+            class="badge"
+            style="border: none; cursor: pointer"
+            title="Copy Meeting Link"
+          >
+            <i class="fas fa-link"></i> Copy Link
+          </button>
+          <span id="participant-count" class="badge">1 Participant</span>
+        </div>
+        <div class="header-actions">
+          <button
+            id="settings-btn"
+            class="control-btn"
+            style="width: auto; height: 30px; padding: 0 10px"
+          >
+            <i class="fas fa-cog"></i>
           </button>
         </div>
+      </header>
 
-        <div class="main">
-          <div id="video-grid"></div>
-          <video id="local-video" autoplay muted></video>
+      <main
+        style="flex: 1; position: relative; overflow: hidden; background: #000"
+      >
+        <div id="video-grid"></div>
+        <div id="local-video-container">
+          <video id="local-video" autoplay muted playsinline></video>
         </div>
+      </main>
 
-        <div class="controls">
-          <button id="video-btn" class="active">
-            <i class="fas fa-video"></i>
-          </button>
-          <button id="audio-btn" class="active">
+      <footer class="controls-bar">
+        <div class="controls-group">
+          <button id="audio-btn" class="control-btn active">
             <i class="fas fa-microphone"></i>
+            <span>Mute</span>
           </button>
-          <button id="screen-btn"><i class="fas fa-desktop"></i></button>
-          <button id="chat-toggle"><i class="fas fa-comment"></i></button>
+          <button id="video-btn" class="control-btn active">
+            <i class="fas fa-video"></i>
+            <span>Stop Video</span>
+          </button>
         </div>
 
-        <!-- Chat Panel -->
-        <div id="chat-panel" class="hidden">
-          <div id="chat-messages"></div>
-          <div class="chat-input">
-            <input
-              type="text"
-              id="message-input"
-              placeholder="Type a message..."
-            />
-            <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+        <div class="controls-group">
+          <button id="record-btn" class="control-btn">
+            <i class="fas fa-dot-circle"></i>
+            <span>Record</span>
+          </button>
+          <button id="screen-btn" class="control-btn">
+            <i class="fas fa-arrow-up-from-bracket"></i>
+            <span>Share Screen</span>
+          </button>
+          <div
+            id="reactions-bar"
+            class="hidden"
+            style="
+              position: absolute;
+              bottom: 90px;
+              background: rgba(0, 0, 0, 0.8);
+              padding: 10px;
+              border-radius: 30px;
+              display: flex;
+              gap: 10px;
+            "
+          >
+            <button
+              class="reaction-item"
+              data-emoji="👍"
+              style="
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+              "
+            >
+              👍
+            </button>
+            <button
+              class="reaction-item"
+              data-emoji="❤️"
+              style="
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+              "
+            >
+              ❤️
+            </button>
+            <button
+              class="reaction-item"
+              data-emoji="😂"
+              style="
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+              "
+            >
+              😂
+            </button>
+            <button
+              class="reaction-item"
+              data-emoji="😮"
+              style="
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+              "
+            >
+              😮
+            </button>
+            <button
+              class="reaction-item"
+              data-emoji="🎉"
+              style="
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+              "
+            >
+              🎉
+            </button>
           </div>
+          <button id="reactions-toggle" class="control-btn">
+            <i class="fas fa-face-smile"></i>
+            <span>Reactions</span>
+          </button>
+          <button id="chat-toggle" class="control-btn">
+            <i class="fas fa-comment"></i>
+            <span>Chat</span>
+          </button>
+        </div>
+
+        <div class="controls-group">
+          <button id="leave-btn" class="leave-btn">End</button>
+        </div>
+      </footer>
+
+      <!-- Chat Panel -->
+      <div id="chat-panel">
+        <div class="chat-header">
+          <span>In-Meeting Chat</span>
+          <button
+            id="chat-close"
+            style="
+              background: none;
+              border: none;
+              cursor: pointer;
+              font-size: 18px;
+            "
+          >
+            &times;
+          </button>
+        </div>
+        <div id="chat-messages"></div>
+        <div class="chat-input-area">
+          <input
+            type="text"
+            id="message-input"
+            placeholder="Type message here..."
+            autocomplete="off"
+          />
+          <button
+            id="send-btn"
+            class="primary-btn"
+            style="width: auto; padding: 0 15px"
+          >
+            Send
+          </button>
         </div>
       </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="settings-overlay"></div>
+    <div id="settings-panel">
+      <h3 style="margin-bottom: 20px">Settings</h3>
+      <div class="input-group">
+        <label>Camera</label>
+        <select
+          id="camera-select"
+          style="width: 100%; padding: 8px; border-radius: 4px"
+        ></select>
+      </div>
+      <div class="input-group">
+        <label>Microphone</label>
+        <select
+          id="mic-select"
+          style="width: 100%; padding: 8px; border-radius: 4px"
+        ></select>
+      </div>
+      <button id="settings-close" class="primary-btn">Close</button>
     </div>
 
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
